@@ -2,7 +2,7 @@ name: Deploy_to_AWS
 env:
   APP_NAME: "My_Application"
   BUCKET_NAME: "elad-sadna-test"
-  PACKAGE_NAME: "my_app_version:${{ github-sha }}.zip"
+  PACKAGE_NAME: "my_app_version:${{ github.sha }}.zip"
   AWS_REGION_NAME: "ca-central-1"
 on:
   push:
