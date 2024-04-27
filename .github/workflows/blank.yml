@@ -36,3 +36,6 @@ jobs:
          host: ${{ env.HOST_NAME }}
          username: ubuntu
          key: ${{ secrets.MY_PRIVATE_KEY }}
+
+      - name: pass
+        run: scp -i "${{ env.NAME_OF_PRIVATE_KEY }}" Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:/var/www/html/
