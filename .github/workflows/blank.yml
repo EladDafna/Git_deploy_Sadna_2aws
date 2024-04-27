@@ -2,7 +2,7 @@ name: Deploy_to_AWS
 env:
   Server_Name: "elad_sadna_test"
   NAME_OF_PRIVATE_KEY: "elad_ca-central-1.pem"
-  HOST_NAME: "3.96.57.227"
+  HOST_NAME: "35.182.218.59"
 on:
   push:
     branches: [ "main" ]
