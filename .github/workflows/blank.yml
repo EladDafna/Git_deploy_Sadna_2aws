@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: echo private key
-        run: echo "${{ secrets.MY_PRIVATE_KEY }}" > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} && ls -la && pwd
+        run: echo "${{ secrets.MY_PRIVATE_KEY }} > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}" && ls -la && pwd
 
       - name: mkdir .ssh
         run: mkdir -p ~/.ssh
