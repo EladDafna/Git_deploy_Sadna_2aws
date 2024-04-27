@@ -31,8 +31,9 @@ jobs:
       - name: Deploy index.html
         uses: appleboy/scp-action@master
         with:
-          local_file: "./index.html"
-          remote_path: "/var/www/html/"
-          remote_host: ${{ env.HOST_NAME }}
-          remote_user: ubuntu
-          remote_key: ${{ secrets.MY_PRIVATE_KEY }}
+         source: "./index.html"
+         target: "/var/www/html/"
+         host: ${{ env.HOST_NAME }}
+         username: ubuntu
+         key: ${{ secrets.MY_PRIVATE_KEY }}
+
