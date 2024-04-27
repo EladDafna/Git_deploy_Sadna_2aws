@@ -23,7 +23,7 @@ jobs:
           pwd
           sudo apt update
           sudo apt install openssh-client
-          ssh-keyscan -H ${{ env.HOST_NAME }} >> ~/.ssh/known_hosts
+          sudo apt install awscli
           
       - name: Install Apache2
         run: sudo apt install apache2
@@ -36,4 +36,3 @@ jobs:
          host: ${{ env.HOST_NAME }}
          username: ubuntu
          key: ${{ secrets.MY_PRIVATE_KEY }}
-
