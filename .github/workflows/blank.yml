@@ -2,6 +2,7 @@ name: Deploy_to_AWS
 env:
   Server_Name: "elad_sadna_test"
   NAME_OF_PRIVATE_KEY: "elad_ca-central-1.pem"
+  HOST_NAME: "3.96.57.227"
 on:
   push:
     branches: [ "main" ]
@@ -22,11 +23,9 @@ jobs:
           pwd
           sudo apt update
           sudo apt install openssh-client
+          ssh-keyscan -H ${{ env.HOST_NAME }} >> ~/.ssh/known_hosts
           
-          
-        
-      
-      - name: Install Apache2
+      - name: Install Apache2 and Deploy
         run: |
-          sudo apt install apache2 && sudo apt update && pwd && ls -la ~/.ssh
-          scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}'  Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:/var/www/html/
+          sudo apt install apache2
+          scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}'  Git_deploy_Sadna_2aws/index.html ${{ secrets.user }}@${{ env.HOST_NAME }}:/var/www/html/
