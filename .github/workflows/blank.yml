@@ -34,7 +34,6 @@ jobs:
 
       - name: Check current directory
         run: |
-           ls -la Git_deploy_Sadna_2aws/
            pwd
 
       - name: Copy index.html
