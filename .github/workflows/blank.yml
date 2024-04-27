@@ -28,4 +28,4 @@ jobs:
         run: sudo apt install apache2 && sudo apt update
 
       - name: Copy index.html
-        run: scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}' -q Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:~
+        run: scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}' -o StrictHostKeyChecking=no -q Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:~
