@@ -22,7 +22,7 @@ jobs:
           pwd
 
       - name: Connect From Github Actions To EC2 instance
-        run: ssh -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@3.96.57.227
+        run: ssh -i ${{ secrets.MY_PRIVATE_KEY }} ubuntu@3.96.57.227
 
       - name: Install SSH client
         run: sudo apt install openssh-client
