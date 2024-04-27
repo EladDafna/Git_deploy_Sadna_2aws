@@ -19,7 +19,4 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y awscli
         echo "${{ secrets.MY_PRIVATE_KEY }}" > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}
-
-    - name: SSH into EC2 instance and execute commands
-      run: |
         ssh -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@15.222.12.15 'sudo apt intall apache2'
