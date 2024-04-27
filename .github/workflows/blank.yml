@@ -28,4 +28,4 @@ jobs:
       - name: Install Apache2 and Deploy
         run: |
           sudo apt install apache2
-          scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}'  Git_deploy_Sadna_2aws/index.html ${{ secrets.user }}@${{ env.HOST_NAME }}:/var/www/html/
+          scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}'  Git_deploy_Sadna_2aws/index.html ubuntu@${{ env.HOST_NAME }}:/var/www/html/
