@@ -32,6 +32,10 @@ jobs:
         run: |
           sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@${{ env.EC2_PUBLIC_IP }} 'sudo apt update && sudo apt install -y apache2'
 
+      - name: Change permissions of /var/www/html
+        run: |
+          sudo chmod -R 777 /var/www/html
+
       - name: Copy index.html to EC2
         run: |
           chmod 777 /home/runner/work/Git_deploy_Sadna_2aws/Git_deploy_Sadna_2aws/index.html
