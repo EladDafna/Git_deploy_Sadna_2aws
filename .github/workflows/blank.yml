@@ -25,9 +25,14 @@ jobs:
           sudo apt install openssh-client
           ssh-keyscan -H ${{ env.HOST_NAME }} >> ~/.ssh/known_hosts
           
-      - name: Install Apache2 and Deploy
-        run: |
-          sudo apt install apache2
-          pwd
-          ls -la
-          sudo scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}'  ./index.html ubuntu@${{ env.HOST_NAME }}:/var/www/html/
+      - name: Install Apache2
+        run: sudo apt install apache2
+
+      - name: Deploy index.html
+        uses: appleboy/scp-action@master
+        with:
+          local_file: "./index.html"
+          remote_path: "/var/www/html/"
+          remote_host: ${{ env.HOST_NAME }}
+          remote_user: ubuntu
+          remote_key: ${{ secrets.MY_PRIVATE_KEY }}
