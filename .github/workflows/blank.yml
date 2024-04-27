@@ -1,16 +1,21 @@
 name: Deploy_to_AWS
+
 env:
   NAME_OF_PRIVATE_KEY: "elad_ca-central-1.pem"
+  EC2_PUBLIC_IP: "15.222.12.15" # Replace with your EC2 public IP
+
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
+
 jobs:
   deploy_to_aws:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: mkdir .ssh and copy private key
         run: |
@@ -23,5 +28,6 @@ jobs:
       - name: Install SSH client
         run: sudo apt install openssh-client
 
-      - name: Install Apache2
-        run: sudo apt install apache2 && sudo apt update
+      - name: Install Apache2 on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@${{ env.EC2_PUBLIC_IP }} 'sudo apt update && sudo apt install -y apache2'
