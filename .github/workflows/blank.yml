@@ -33,4 +33,4 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@${{ env.EC2_PUBLIC_IP }} 'sudo apt update && sudo apt install -y apache2'
 
       - name: Copy index.html
-        run: scp -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ./index.html ubuntu@${{ env.EC2_PUBLIC_IP }}:/var/www/html/
+        run: sudo scp -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} Git_deploy_Sadna_2aws/index.html ubuntu@${{ env.EC2_PUBLIC_IP }}:/var/www/html/
