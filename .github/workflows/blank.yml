@@ -1,9 +1,7 @@
 name: Deploy_to_AWS
 env:
-  APP_NAME: "My_Application"
-  BUCKET_NAME: "elad-sadna-test"
-  PACKAGE_NAME: "my_app_version:${{ github.sha }}.zip"
-  AWS_REGION_NAME: "ca-central-1"
+  Server_Name: "elad_sadna_test"
+  NAME_OF_PRIVATE_KEY: "elad_ca-central-1.pem"
 on:
   push:
     branches: [ "main" ]
@@ -14,17 +12,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: aws --version
-      - name: Configure my AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{  secrets.MY_AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
-          aws-region: ${{ env.AWS_REGION_NAME }}
 
-      - name: Create Package
-        run: zip -r ${{ env.PACKAGE_NAME }} ./ -x *.git*
+      - name: echo private key
+        run: echo "${{ secrets.MY_PRIVATE_KEY }} > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}"
 
-      - name: Send Package
-        run: aws s3 cp ${{ env.PACKAGE_NAME }} s3://${{ env.BUCKET_NAME }}/
+      - name: Connect From Git hub actions To Ec2 instance
+        run: ssh -i "${{ secrets.NAME_OF_PRIVATE_KEY }} ${{ secrets.USER_NAME }}"
+
+      - name: Install SSH client
+        run: sudo apt install openssh-client
+
+      - name: Install Apache2
+        run: sudo apt install apache2 && sudo apt update
+
+      - name: Copy index.html
+        run: scp -i "${{ env.NAME_OF_PRIVATE_KEY }}" Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:/var/www/html/
+
+
+     
+
+
+      
