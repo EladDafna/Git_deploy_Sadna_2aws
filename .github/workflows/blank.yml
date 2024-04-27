@@ -13,13 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: mkdir .ssh
-        run: mkdir -p ~/.ssh && ls -la && pwd
-      - name: echo private key
-        run: echo "${{ secrets.MY_PRIVATE_KEY }} > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}" && ls -la && pwd
-        
-      - name: Connect From Git hub actions To Ec2 instance
-        run: ssh ${{ secrets.USER_NAME }}
+      - name: mkdir .ssh and copy private key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.MY_PRIVATE_KEY }}" > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}
+          chmod 600 ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}
+          ls -la ~/.ssh
+
+      - name: Connect From Github Actions To EC2 instance
+        run: ssh -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ${{ secrets.USER_NAME }}
 
       - name: Install SSH client
         run: sudo apt install openssh-client
@@ -28,4 +30,4 @@ jobs:
         run: sudo apt install apache2 && sudo apt update
 
       - name: Copy index.html
-        run: scp -i "${{ env.NAME_OF_PRIVATE_KEY }}" Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:/var/www/html/
+        run: scp -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:/var/www/html/
