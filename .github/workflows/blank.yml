@@ -29,4 +29,4 @@ jobs:
 
 
       - name: Copy index.html
-        run: scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}' ~/index.html ${{ secrets.USER_NAME }}:~
+        run: scp -i ~/.ssh/'${{ NAME_OF_PRIVATE_KEY }}' ~/index.html ${{ secrets.USER_NAME }}:~
