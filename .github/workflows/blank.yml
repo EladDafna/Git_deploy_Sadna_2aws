@@ -20,7 +20,7 @@ jobs:
         run: mkdir -p ~/.ssh
         
       - name: Connect From Git hub actions To Ec2 instance
-        run: ssh -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ${{ secrets.USER_NAME }}
+        run: ssh ${{ secrets.USER_NAME }}
 
       - name: Install SSH client
         run: sudo apt install openssh-client
