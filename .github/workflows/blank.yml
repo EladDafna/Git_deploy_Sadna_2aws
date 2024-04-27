@@ -1,41 +1,25 @@
-name: Deploy_to_AWS
+name: Deploy to EC2
 env:
-  Server_Name: "elad_sadna_test"
   NAME_OF_PRIVATE_KEY: "elad_ca-central-1.pem"
-  HOST_NAME: "35.182.218.59"
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches:
+      - main
+
 jobs:
-  deploy_to_aws:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: mkdir .ssh and copy private key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.MY_PRIVATE_KEY }}" > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}
-          chmod 600 ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}
-          ls -la ~/.ssh
-          pwd
-          sudo apt update
-          sudo apt install openssh-client
-          sudo apt install awscli
-          
-      - name: Install Apache2
-        run: sudo apt install apache2
+    - name: Install AWS CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y awscli
+        echo "${{ secrets.MY_PRIVATE_KEY }}" > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}
 
-      - name: Deploy index.html
-        uses: appleboy/scp-action@master
-        with:
-         source: "./index.html"
-         target: "/var/www/html/"
-         host: ${{ env.HOST_NAME }}
-         username: ubuntu
-         key: ${{ secrets.MY_PRIVATE_KEY }}
-
-      - name: pass
-        run: scp -i "${{ env.NAME_OF_PRIVATE_KEY }}" Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:/var/www/html/
+    - name: SSH into EC2 instance and execute commands
+      run: |
+        ssh -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@15.222.12.15 'sudo apt intall apache2'
