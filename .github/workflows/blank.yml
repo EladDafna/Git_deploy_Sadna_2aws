@@ -1,23 +1,19 @@
-name: Deploy to EC2
-
+name: Deploy_to_AWS
+env:
+  Server_Name: "elad_sadna_test"
+  NAME_OF_PRIVATE_KEY: "elad_ca-central-1.pem"
 on:
   push:
-    branches: [main]
-
+    branches: [ "main" ]
+  workflow_dispatch:
 jobs:
-  deploy:
+  deploy_to_aws:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      
-      - name: Install SSH client
-        run: sudo apt-get install openssh-client
-      
-      - name: echo private key
-        run: echo "${{ secrets.MY_PRIVATE_KEY }} > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}" && ls -la && pwd
-        
-      - name: Copy file to EC2
-        run: scp -i "${{ env.NAME_OF_PRIVATE_KEY }}" Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:~
+      - uses: actions/checkout@v4
 
+      - name: echo private key
+        run: |
+          echo "${{ secrets.MY_PRIVATE_KEY }} > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}" && ls -la && pwd
+          ssh -i ~/.ssh/elad_ca-central-1.pem ubuntu@3.96.57.227
