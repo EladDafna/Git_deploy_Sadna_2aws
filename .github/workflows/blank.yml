@@ -13,13 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Create SSH directory if not exists
+        run: mkdir -p ~/.ssh
+
       - name: echo private key
         run: echo "${{ secrets.MY_PRIVATE_KEY }} > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}"
 
       - name: Chmod 600
         run: chmod 600 ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}
 
-      - name: Connect From Git hub actions To Ec2 instance
+      - name: Connect From GitHub actions To EC2 instance
         run: ssh -i "${{ env.NAME_OF_PRIVATE_KEY }}" ${{ secrets.USER_NAME }}
 
       - name: Install SSH client
