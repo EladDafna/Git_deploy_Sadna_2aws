@@ -30,7 +30,7 @@ jobs:
 
       - name: Install Apache2 on EC2
         run: |
-          sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@${{ env.EC2_PUBLIC_IP }} 'sudo apt purge -y apache2 && sudo apt autoremove -y'
+          sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@${{ env.EC2_PUBLIC_IP }} 'sudo apt update && sudo apt install -y apache2'
 
       - name: Copy index.html to EC2
         run: |
