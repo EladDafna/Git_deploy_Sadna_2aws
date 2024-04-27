@@ -1,6 +1,5 @@
 name: Deploy_to_AWS
 env:
-  Server_Name: "elad_sadna_test"
   NAME_OF_PRIVATE_KEY: "elad_ca-central-1.pem"
 on:
   push:
@@ -20,9 +19,7 @@ jobs:
           chmod 600 ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}
           ls -la ~/.ssh
           pwd
-          ssh -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@15.222.12.15 'sudo apt-get update'
         
-      
       - name: Install SSH client
         run: sudo apt install openssh-client
 
