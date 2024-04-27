@@ -36,4 +36,4 @@ jobs:
         run: |
           sudo scp -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} /home/runner/work/Git_deploy_Sadna_2aws/Git_deploy_Sadna_2aws/index.html ubuntu@${{ env.EC2_PUBLIC_IP }}:/home/ubuntu
 
-      - run: sudo scp -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@${{ env.EC2_PUBLIC_IP }}:/home/ubuntu/index.html /var/www/html/
+      - run: sudo scp -o StrictHostKeyChecking=no -i ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }} ubuntu@${{ env.EC2_PUBLIC_IP }}:/home/ubuntu/index.html /var/www/html/index.html
