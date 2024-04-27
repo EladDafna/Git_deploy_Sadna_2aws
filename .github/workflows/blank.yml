@@ -15,6 +15,9 @@ jobs:
       - name: Install SSH client
         run: sudo apt-get install openssh-client
       
+      - name: echo private key
+        run: echo "${{ secrets.MY_PRIVATE_KEY }} > ~/.ssh/${{ env.NAME_OF_PRIVATE_KEY }}" && ls -la && pwd
+        
       - name: Copy file to EC2
         run: scp -i "${{ env.NAME_OF_PRIVATE_KEY }}" Git_deploy_Sadna_2aws/index.html ${{ secrets.USER_NAME }}:/var/www/html/
 
