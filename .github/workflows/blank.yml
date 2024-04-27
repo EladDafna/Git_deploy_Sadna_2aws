@@ -30,4 +30,4 @@ jobs:
           sudo apt install apache2
           pwd
           ls -la
-          scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}'  ./index.html ubuntu@${{ env.HOST_NAME }}:/var/www/html/
+          sudo scp -i ~/.ssh/'${{ env.NAME_OF_PRIVATE_KEY }}'  ./index.html ubuntu@${{ env.HOST_NAME }}:/var/www/html/
