@@ -27,4 +27,4 @@ jobs:
         run: sudo apt install apache2 && sudo apt update
 
       - name: Copy index.html
-        run: scp -i "${{ env.NAME_OF_PRIVATE_KEY }}" Git_deploy_Sadna_2aws/index.html ubuntu@15.222.12.15:/var/www/html/
+        run: scp -i ~/.ssh"${{ env.NAME_OF_PRIVATE_KEY }}" Git_deploy_Sadna_2aws/index.html ubuntu@15.222.12.15:/var/www/html/
